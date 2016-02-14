@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+ <!--extension
+         point="org.eclipse.ui.menus">
+      <menuContribution 
+            allPopups="false"
+            locationURI="popup:org.xmind.ui.StylesView?after=group.file">
+         <command
+               commandId="org.xmind.ui.command.style.apply"
+               id="org.xmind.ui.popup.StylesView.apply"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension-->
+
+
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="WBS consolidation"
+            visible="true"
+            id="XMindConsolidate.actionSet">
+         <menu
+               label="WBS consolidation"
+               id="XmindConsolidate">
+            <separator
+                  name="XmindConsolidate">
+            </separator>
+         </menu>
+         <action
+               style="toggle"
+               state="true"
+               label="&amp;Consolidate WBS"
+               icon="icons/Sigma16.gif"
+               class="xmindconsolidate.actions.ConsolidateLoadAction"
+               tooltip="Consolidate WBS"
+               menubarPath="XmindConsolidate/WBSConsGroup"
+               toolbarPath="WBSConsGroup"
+               id="xmindconsolidate.actions.SampleAction">
+         </action>
+      </actionSet>
+   </extension>
+      <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="xmindconsolidate.preferences.WorkbenchPreferencePage1"
+            id="xmindconsolidate.preferences.WorkbenchPreferencePage1"
+            name="XMindConsolidate">
+            
+      </page>
+   </extension>
+
+</plugin>
