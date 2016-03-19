@@ -174,8 +174,8 @@ public class WorkBookTrt {
 	public void cleanLabelfromSumInfo(ITopic topic)
 	{
 		
-		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
-		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern1 = Pattern.compile("\u03A3\\s=\\s(\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern2 = Pattern.compile("\u03A3\\s=\\s(\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
 
 
 
@@ -229,7 +229,6 @@ public class WorkBookTrt {
 
 		}
 		
-		System.out.println("maxLevelSeen =  "+maxLevelSeen);
 
 		for ( Integer i =maxLevelSeen; i>-1; i--)
 		{
@@ -400,6 +399,45 @@ public class WorkBookTrt {
 		//ces.registerGlobalListener(Core.Labels, wcel); // 
 
 
+	}
+
+
+	public void cleanSumInfo()
+	{
+
+		
+		HashMap<Integer, List <ITopic>> hm = new HashMap<Integer, List<ITopic>>();
+
+		ITopic root = wb.getPrimarySheet().getRootTopic();
+
+
+		crossTree(root,0, hm);
+		
+
+		int maxLevelSeen = 0;
+		for ( Integer i :  hm.keySet())
+		{
+			if ( i > maxLevelSeen)
+			{
+				maxLevelSeen = i;
+			}
+
+		}
+		
+		
+		for ( Integer i =maxLevelSeen; i>-1; i--)
+		{
+			for ( ITopic topic : hm.get(i)) 
+			{ 
+
+//				TopicUtils trt = new TopicUtils(topic, wb);
+				cleanLabelfromSumInfo(topic);
+
+			}
+		}
+		
+
+		
 	}
 
 
