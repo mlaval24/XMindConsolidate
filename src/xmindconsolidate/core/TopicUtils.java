@@ -213,8 +213,8 @@ public class TopicUtils  {
 			
 			 final Pattern pattern1 = Pattern.compile("\\D+\\s*(\\d*\\.\\d*)\\s*([jJdDhH"+GenUtils.getDayAbrev()+"])");
 			 final Pattern pattern2 = Pattern.compile("\\D+\\s*(\\d*)\\s*([jJdDhH"+GenUtils.getDayAbrev()+"])");
-			 final Pattern pattern1 = Pattern.compile("\\D+\\s*(\\d*\\.\\d*)\\s[jJdD]");
-			 final Pattern pattern2 = Pattern.compile("\\D+\\s*(\\d*)\\s*[jJdD]");
+			 //final Pattern pattern1 = Pattern.compile("\\D+\\s*(\\d*\\.\\d*)\\s[jJdD]");
+			 // final Pattern pattern2 = Pattern.compile("\\D+\\s*(\\d*)\\s*[jJdD]");
 			
 			
 			  final Matcher matcher1 = pattern1.matcher(lb);
@@ -248,19 +248,9 @@ public class TopicUtils  {
 					    
 				      }
                    }
-			
-	   			   ch += Double.parseDouble(matcher1.group(1) );
+
 			  }
-			  else
-			  {
-				  final Matcher matcher2 = pattern2.matcher(lb);
-				  if ( matcher2.find() )
-				  {
-		   			   ch += Double.parseDouble(matcher2.group(1) );
-					  
-				  }
-				  
-			  }
+			  
 			
 		}
 		
@@ -273,33 +263,11 @@ public class TopicUtils  {
 	
 
 	
-	/**
-	 * Store TotalWork in XMind  
-	 * @param ch Total Work of Topic
-	 */
-	public void setTotalWork(Double ch)
-	{
-	  
-	  
-	  ITopicExtension charge = topic.getExtension("org.mlaval.xmind");
-		if (charge == null)
-		{
-		  
-		  charge = topic.createExtension("org.mlaval.xmind");
-	  }
-	  
-	  ITopicExtensionElement ee = charge.getContent().getFirstChild(TOTAL_WORK_TAG);
-	  if ( ee == null)
-	  {
-	  
-		  ee =   charge.getContent().createChild(TOTAL_WORK_TAG);
-	  }
-	  
-		if (ee != null)
-		{
-	    ee.setTextContent(ch.toString());
-	  }
-	 
+	
+		
+		
+		
+		
 	 /*
 	 * Store TotalWork in XMind  
 	 * @param ch Total Work of Topic

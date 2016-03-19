@@ -174,8 +174,8 @@ public class WorkBookTrt {
 	public void cleanLabelfromSumInfo(ITopic topic)
 	{
 		
-		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdD"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
-		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdD"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
 
 
 
@@ -244,11 +244,11 @@ public class WorkBookTrt {
 				 * Is the topic a leaf ?  In this case, work and progress are stored
 				 * 
 				 */
-				Integer childrenNumber = topic.getAllChildren().size();
+				Integer childrenCount = topic.getAllChildren().size();
 				
-				System.out.println(i+" >>"+topic.getTitleText());
+				System.out.println(i+" >>"+topic.getTitleText()+" , "+ childrenCount+ "children");
 
-				if ( childrenNumber == 0)
+				if ( childrenCount == 0)
 				{
 
 
@@ -328,8 +328,8 @@ public class WorkBookTrt {
 							 * and deleting them 
 							 *  
 							 */
-							final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdD"+GenUtils.getDayAbrev()+"]$");
-							final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdD"+GenUtils.getDayAbrev()+"]$");
+							final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
+							final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
 	
 							
 							final Matcher mWk1 = ptWk1.matcher(l);
