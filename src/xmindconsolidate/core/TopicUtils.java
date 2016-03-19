@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.xmind.core.ITopic;
 import org.xmind.core.ITopicExtension;
@@ -22,6 +23,7 @@ import org.xmind.core.IWorkbook;
 import org.xmind.core.marker.IMarkerGroup;
 import org.xmind.core.marker.IMarkerRef;
 
+import xmindconsolidate.Activator;
 
 
 
@@ -35,6 +37,8 @@ public class TopicUtils  {
 
 	
 	private ITopic topic; 
+	//TODO Remove it
+	//private IWorkbook wb;
 	private IWorkbook wb;
 	
 	/*
@@ -207,6 +211,8 @@ public class TopicUtils  {
 		for ( String lb :lbs )
 		{
 			
+			 final Pattern pattern1 = Pattern.compile("\\D+\\s*(\\d*\\.\\d*)\\s*([jJdDhH"+GenUtils.getDayAbrev()+"])");
+			 final Pattern pattern2 = Pattern.compile("\\D+\\s*(\\d*)\\s*([jJdDhH"+GenUtils.getDayAbrev()+"])");
 			 final Pattern pattern1 = Pattern.compile("\\D+\\s*(\\d*\\.\\d*)\\s[jJdD]");
 			 final Pattern pattern2 = Pattern.compile("\\D+\\s*(\\d*)\\s*[jJdD]");
 			
@@ -214,6 +220,34 @@ public class TopicUtils  {
 			  final Matcher matcher1 = pattern1.matcher(lb);
 			  if ( matcher1.find() )
 			  {
+				   if ( matcher1.group(2).equals("h") 
+						   || matcher1.group(2).equals("H"))
+				   {
+	   			       ch += Double.parseDouble(matcher1.group(1) )/8.0;
+				   }
+				   else
+				   {
+	   			       ch += Double.parseDouble(matcher1.group(1) );
+					   
+				   }
+			  }
+			  else
+			  {
+     	           final Matcher matcher2 = pattern2.matcher(lb);
+
+                   if ( matcher2.find() )
+                   {
+				      if ( matcher2.group(2).equals("h") 
+					   	   || matcher2.group(2).equals("H"))
+				      {
+	   			          ch += Double.parseDouble(matcher2.group(1) )/8.0;
+				      }
+				      else
+				      {
+	   			         ch += Double.parseDouble(matcher2.group(1) );
+					    
+				      }
+                   }
 			
 	   			   ch += Double.parseDouble(matcher1.group(1) );
 			  }
@@ -243,8 +277,34 @@ public class TopicUtils  {
 	 * Store TotalWork in XMind  
 	 * @param ch Total Work of Topic
 	 */
-	public void setTotalWork(Double ch ) {
+	public void setTotalWork(Double ch)
+	{
 	  
+	  
+	  ITopicExtension charge = topic.getExtension("org.mlaval.xmind");
+		if (charge == null)
+		{
+		  
+		  charge = topic.createExtension("org.mlaval.xmind");
+	  }
+	  
+	  ITopicExtensionElement ee = charge.getContent().getFirstChild(TOTAL_WORK_TAG);
+	  if ( ee == null)
+	  {
+	  
+		  ee =   charge.getContent().createChild(TOTAL_WORK_TAG);
+	  }
+	  
+		if (ee != null)
+		{
+	    ee.setTextContent(ch.toString());
+	  }
+	 
+	 /*
+	 * Store TotalWork in XMind  
+	 * @param ch Total Work of Topic
+	 */
+	public void setTotalWork(Double ch ) {
 	  
 	  ITopicExtension charge = topic.getExtension("org.mlaval.xmind");
 	  if(charge == null) {
@@ -269,7 +329,8 @@ public class TopicUtils  {
 	 * @param topic
 	 * @return Total work or topic (with subtopics) in days
 	 */
-	public double getTotalWork() {
+	public double getTotalWork()
+	{
 	
 	     double res = 0;		 
 		 
@@ -289,8 +350,9 @@ public class TopicUtils  {
 	 * Delete TotalWork information from Xmind
 	 * @param topic
 	 */
-	public void removeTotalWork() {
-	  topic.deleteExtension(TOTAL_WORK_TAG);
+	public void removeTotalWork()
+	{
+		topic.deleteExtension(TOTAL_WORK_TAG);
 	}
 	
 	

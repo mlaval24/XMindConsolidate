@@ -31,7 +31,7 @@
          </menu>
          <action
                style="toggle"
-               state="true"
+               state="false"
                label="&amp;Consolidate WBS"
                icon="icons/Sigma16.gif"
                class="xmindconsolidate.actions.ConsolidateLoadAction"
@@ -51,5 +51,87 @@
             
       </page>
    </extension>
+
+      <!--extension
+            point="org.eclipse.ui.commands">
+         <category
+               id="XMindConsolidate.commands.category"
+               name="Sample Category">
+         </category>
+         <command
+               categoryId="XMindConsolidate.commands.category"
+               id="XMindConsolidate.commands.sampleCommand"
+               name="Sample Command">
+         </command>
+      </extension>
+      <extension
+            point="org.eclipse.ui.handlers">
+         <handler
+               class="xmindconsolidate.handlers.SampleHandler"
+               commandId="XMindConsolidate.commands.sampleCommand">
+         </handler>
+      </extension>
+      <extension
+            point="org.eclipse.ui.bindings">
+         <key
+               commandId="XMindConsolidate.commands.sampleCommand"
+               contextId="org.eclipse.ui.contexts.window"
+               schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+               sequence="M1+6">
+         </key>
+      </extension>
+      <extension
+            id="toolbar"
+            point="org.eclipse.ui.menus">
+         <menuContribution
+               locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+           <separator
+                  name="Separator">
+            </separator>
+               
+            <menu
+                  id="XMindConsolidate.menus.sampleMenu"
+                  label="Sample Menu"
+                  mnemonic="M">
+               <command
+                     commandId="XMindConsolidate.commands.sampleCommand"
+                     id="XMindConsolidate.menus.sampleCommand"
+                     mnemonic="S">
+               </command>
+            </menu>
+         </menuContribution>
+         <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+            <toolbar
+                  id="XMindConsolidate.toolbars.sampleToolbar">
+               <Generic>
+                  Texte
+               </Generic>
+               <command
+                     commandId="XMindConsolidate.commands.sampleCommand"
+                     icon="icons/sample.gif"
+                     id="XMindConsolidate.toolbars.sampleCommand"
+                     tooltip="Say hello world">
+               </command>
+            </toolbar>
+         </menuContribution>
+         <menuContribution
+               locationURI="toolbar:org.eclipse.ui.main.toolbar">
+            <separator
+                  name="Separator">
+            </separator>
+            <menu
+                  id="XMindConsolidate.menus.sampleMenu"
+                  label="Sample Menu"
+                  mnemonic="M">
+               <command
+                     commandId="XMindConsolidate.commands.sampleCommand"
+                     id="XMindConsolidate.menus.sampleCommand"
+                     mnemonic="S">
+               </command>
+            </menu>
+         </menuContribution>
+      </extension-->
+
 
 </plugin>

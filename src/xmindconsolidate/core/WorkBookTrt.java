@@ -174,8 +174,9 @@ public class WorkBookTrt {
 	public void cleanLabelfromSumInfo(ITopic topic)
 	{
 		
-		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdD]\\s\\(.*\\)");
-		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdD]\\s\\(.*\\)");
+		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdD"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdD"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+
 
 
 		Set<String> labels = topic.getLabels();
@@ -327,8 +328,9 @@ public class WorkBookTrt {
 							 * and deleting them 
 							 *  
 							 */
-							final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdD]$");
-							final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdD]$");
+							final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdD"+GenUtils.getDayAbrev()+"]$");
+							final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdD"+GenUtils.getDayAbrev()+"]$");
+	
 							
 							final Matcher mWk1 = ptWk1.matcher(l);
 							final Matcher mWk2 = ptWk2.matcher(l);
@@ -339,6 +341,7 @@ public class WorkBookTrt {
 								topic.removeLabel(l);
 								
 								
+							    //TODO : internationalize it !	
 							    	
 								MessageDialog.openInformation(
 										this.window.getShell(),
@@ -350,6 +353,7 @@ public class WorkBookTrt {
 
 							
 							
+							topic.addLabel("\u03A3 = " + trt.getTotalWork()+GenUtils.getDayAbrev()+" ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" );
 							
 							IPreferenceStore preferenceStore = Activator.getDefault()
 							        .getPreferenceStore();

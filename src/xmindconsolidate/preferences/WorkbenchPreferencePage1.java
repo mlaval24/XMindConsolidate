@@ -11,6 +11,12 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import xmindconsolidate.Activator;
 
+/**
+ * Prefrences page
+ * 
+ * @author mlaval
+ *
+ */
 
 public class WorkbenchPreferencePage1 extends FieldEditorPreferencePage implements
     IWorkbenchPreferencePage {

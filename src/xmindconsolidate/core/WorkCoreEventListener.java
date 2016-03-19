@@ -23,7 +23,7 @@ class WorkCoreEventListener implements ICoreEventListener {
 
 
 	private static Boolean listenerReacting = true;
-	private static int level = 0;
+	// private static int level = 0;
 	private IWorkbenchWindow window;
 
 	
