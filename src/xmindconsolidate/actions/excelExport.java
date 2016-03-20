@@ -3,6 +3,11 @@ package xmindconsolidate.actions;
 import com.jacob.com.*;
 import com.jacob.activeX.*;
 
+/**
+ * Deuxieme titre
+ * @author LAVALDAVID
+ *
+ */
 public class excelExport
 {
   public static void main(String[] args)
