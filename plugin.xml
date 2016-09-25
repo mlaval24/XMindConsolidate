@@ -92,6 +92,7 @@
       </page>
    </extension>
 
+     <!-- -->
 
       <!--extension
             point="org.eclipse.ui.commands">
