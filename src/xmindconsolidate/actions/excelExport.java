@@ -3,6 +3,12 @@ package xmindconsolidate.actions;
 import com.jacob.com.*;
 import com.jacob.activeX.*;
 
+/**
+ * 
+ * Classe de test excel
+ * @author LAVALDAVID
+ *
+ */
 public class excelExport
 {
   public static void main(String[] args)
