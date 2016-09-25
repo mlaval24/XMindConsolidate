@@ -55,7 +55,7 @@ class WorkCoreEventListener implements ICoreEventListener {
 			
 
 			/*
-			 * We are going to modify topics, so we disable reactionf to events 
+			 * We are going to modify topics, so we disable reaction to events 
 			 */
 			listenerReacting = false;	
 			
@@ -142,5 +142,10 @@ class WorkCoreEventListener implements ICoreEventListener {
 
 	}
 	
+	public void toogleReacting(boolean reacting)
+	{
+		
+		listenerReacting = reacting;
+	}
 
 }
