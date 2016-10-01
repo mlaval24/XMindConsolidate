@@ -16,3 +16,9 @@ To avoid cache problems
 * delete <xmind>\data
 
 Start xmind
+
+
+To do
+-----
+* Support of multiple workbooks
+* Toogle button 

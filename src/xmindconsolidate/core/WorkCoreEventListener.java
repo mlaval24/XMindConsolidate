@@ -44,6 +44,9 @@ class WorkCoreEventListener implements ICoreEventListener {
 		}
 		
 		
+		
+		
+		
 		/* 
 		 * We only watch events coming from topics .... 
 		 */
