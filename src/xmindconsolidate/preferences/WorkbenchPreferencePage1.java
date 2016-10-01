@@ -1,9 +1,7 @@
 package xmindconsolidate.preferences;
          
-import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.jface.preference.DirectoryFieldEditor;
+
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -11,6 +9,12 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import xmindconsolidate.Activator;
 
+/**
+ * Prefrences page
+ * 
+ * @author mlaval
+ *
+ */
 
 public class WorkbenchPreferencePage1 extends FieldEditorPreferencePage implements
     IWorkbenchPreferencePage {

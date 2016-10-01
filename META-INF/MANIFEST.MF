@@ -4,6 +4,7 @@ Bundle-Name: XMindConsolidate
 Bundle-SymbolicName: XMindConsolidate;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: xmindconsolidate.Activator
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.xmind.core;bundle-version="3.5.0",

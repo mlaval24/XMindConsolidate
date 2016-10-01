@@ -23,7 +23,7 @@ class WorkCoreEventListener implements ICoreEventListener {
 
 
 	private static Boolean listenerReacting = true;
-	private static int level = 0;
+	// private static int level = 0;
 	private IWorkbenchWindow window;
 
 	
@@ -44,6 +44,9 @@ class WorkCoreEventListener implements ICoreEventListener {
 		}
 		
 		
+		
+		
+		
 		/* 
 		 * We only watch events coming from topics .... 
 		 */
@@ -55,7 +58,7 @@ class WorkCoreEventListener implements ICoreEventListener {
 			
 
 			/*
-			 * We are going to modify topics, so we disable reactionf to events 
+			 * We are going to modify topics, so we disable reaction to events 
 			 */
 			listenerReacting = false;	
 			
@@ -142,5 +145,10 @@ class WorkCoreEventListener implements ICoreEventListener {
 
 	}
 	
+	public void toogleReacting(boolean reacting)
+	{
+		
+		listenerReacting = reacting;
+	}
 
 }

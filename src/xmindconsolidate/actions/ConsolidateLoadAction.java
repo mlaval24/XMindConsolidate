@@ -32,10 +32,14 @@ public class ConsolidateLoadAction implements IWorkbenchWindowActionDelegate {
 	 */
 	public void run(IAction action) {
 		
+        WorkConsolidate t = new WorkConsolidate(window);
 		if (action.isChecked() )
 		{
-		   WorkConsolidate t = new WorkConsolidate(window);
-		   t.run();
+			   t.run();
+		}
+		else
+		{
+			   t.clean();
 		}
 		
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -43,6 +44,7 @@ public class WorkBookTrt {
 	public  ICoreEventRegistration markerRemoveRegistration ;
 
 	private static  ICoreEventSupport  ces  = null;
+	private static WorkCoreEventListener wcel = null; 
 	
 	private IWorkbenchWindow window;
 
@@ -173,26 +175,57 @@ public class WorkBookTrt {
 	 */
 	public void cleanLabelfromSumInfo(ITopic topic)
 	{
-		
-		final Pattern pattern1 = Pattern.compile("\u03A3 = (\\d*\\.\\d*)[jJdD]\\s\\(.*\\)");
-		final Pattern pattern2 = Pattern.compile("\u03A3 = (\\d*)[jJdD]\\s\\(.*\\)");
+
+		final Pattern pattern1 = Pattern.compile("\\u03A3\\s=\\s(\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern2 = Pattern.compile("\\u03A3\\s=\\s(\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
 
 
-		Set<String> labels = topic.getLabels();
 	
+		Set<String> labels = topic.getLabels();
+		
+		Iterator<String> iterator = labels.iterator();
+		
 
-		for( String  l : labels)
+
+    	while (iterator.hasNext()) 
 		{
+		    String l  =  iterator.next();	
+			boolean isSum = false;
+			
 
-    		final Matcher matcher1 = pattern1.matcher(l);
-	    	final Matcher matcher2 = pattern2.matcher(l);
-		    if ( matcher1.find() ||  matcher2.find() )
+
+    		if (  pattern1.matcher(l).find() )
+    		{
+    			isSum = true;
+    		}
+    		else
+    		{
+
+    			if (   pattern2.matcher(l).find()  )
+        		{
+        			isSum = true;
+        		}
+    			
+    		}
+	    	
+		    if (isSum )
 		    {
-		    	topic.removeLabel(l);
+		    	
+		    	
+		    	 topic.removeLabel(l);
+		    	 /*
+ 		    	 MessageDialog.openInformation(
+							this.window.getShell(),
+							"XMindConsolidate",
+							"maj pour le poste " +topic.getTitleText());
+				*/			
+				
 
 		    }
 		}
-
+    	
+    
+    
 	}
 	
 	
@@ -206,13 +239,22 @@ public class WorkBookTrt {
 		
 
 
+		/* We'll work on labels : we need to stop automtic reaction */
+		
+		if ( wcel  !=  null)
+		{
+			wcel.toogleReacting(false);
+		}
+			
+		
+		
 		HashMap<Integer, List <ITopic>> hm = new HashMap<Integer, List<ITopic>>();
 
 		ITopic root = wb.getPrimarySheet().getRootTopic();
 
 
 
-
+          
 		// manageIcons(wb);
 
 		crossTree(root,0, hm);
@@ -228,7 +270,6 @@ public class WorkBookTrt {
 
 		}
 		
-		System.out.println("maxLevelSeen =  "+maxLevelSeen);
 
 		for ( Integer i =maxLevelSeen; i>-1; i--)
 		{
@@ -243,11 +284,10 @@ public class WorkBookTrt {
 				 * Is the topic a leaf ?  In this case, work and progress are stored
 				 * 
 				 */
-				Integer childrenNumber = topic.getAllChildren().size();
+				Integer childrenCount = topic.getAllChildren().size();
 				
-				System.out.println(i+" >>"+topic.getTitleText());
 
-				if ( childrenNumber == 0)
+				if ( childrenCount == 0)
 				{
 
 
@@ -281,8 +321,8 @@ public class WorkBookTrt {
 
 						totalWork += childTopic.getTotalWork();
 						totalWorkCompleted += childTopic.getTotalWorkCompleted();
-						System.out.println("totalWork = "+childTopic.getTotalWork());
-						System.out.println("totalWorkCompleted = "+childTopic.getTotalWorkCompleted());
+						// System.out.println("totalWork = "+childTopic.getTotalWork());
+						// System.out.println("totalWorkCompleted = "+childTopic.getTotalWorkCompleted());
 					}    	 		    	
 
 					trt.setTotalWork(totalWork);
@@ -306,66 +346,41 @@ public class WorkBookTrt {
 					 */
 					cleanLabelfromSumInfo(topic);
 
+					
 					/*
-					 * Affichage
+					 * Clean work : this is a non leaf topic
 					 * 
 					 */
 					Set<String> labels = topic.getLabels();
 
-					if ( labels.isEmpty()) 
+					for( String  l : labels)
 					{
-						topic.addLabel("\u03A3 = " + trt.getTotalWork()+"j ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" );
-					}
-					else
-					{
-						for( String  l : labels)
+
+						final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
+						final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
+
+
+						final Matcher mWk1 = ptWk1.matcher(l);
+						final Matcher mWk2 = ptWk2.matcher(l);
+
+						if ( mWk1.find() ||  mWk2.find() )
+
 						{
+							topic.removeLabel(l);
 
-
-							/*
-							 * Search of labels  indicating work,
-							 * and deleting them 
-							 *  
-							 */
-							final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdD]$");
-							final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdD]$");
-							
-							final Matcher mWk1 = ptWk1.matcher(l);
-							final Matcher mWk2 = ptWk2.matcher(l);
-							
-							if ( mWk1.find() ||  mWk2.find() )
-								
-							{
-								topic.removeLabel(l);
-								
-								
-							    	
-								MessageDialog.openInformation(
-										this.window.getShell(),
-										"XMindConsolidate",
-										"Suppression de la charge de travail "+l+" pour le poste " +topic.getTitleText());
-								
-
-							} 
-
-							
-							
-							
-							IPreferenceStore preferenceStore = Activator.getDefault()
-							        .getPreferenceStore();
-							String dayAbrev = preferenceStore.getString("DAY_ABREV");
-                            
-
-							topic.addLabel("\u03A3 = " + trt.getTotalWork()+"j ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" );
-
-
-						}
+							//TODO : internationalize it !	
+							MessageDialog.openInformation(
+									this.window.getShell(),
+									"XMindConsolidate",
+									"Suppression de la charge de travail "+l+" pour le poste " +topic.getTitleText());
+						} 
+					}
 					
 
-
-					}
-
-
+					/*
+					 * And add sum information
+					 */
+    				topic.addLabel("\u03A3 = " + trt.getTotalWork()+GenUtils.getDayAbrev()+" ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" );
 
 				}
 
@@ -382,7 +397,8 @@ public class WorkBookTrt {
 		if ( ces ==null )
 		{
 			ces = (ICoreEventSupport) wb.getAdapter(ICoreEventSupport.class);
-			WorkCoreEventListener wcel = new WorkCoreEventListener(this.window);
+			
+			wcel = new WorkCoreEventListener(this.window);
 
 			ces.registerGlobalListener(Core.MarkerRefAdd, wcel); //
 			ces.registerGlobalListener(Core.MarkerRefRemove, wcel); //
@@ -391,14 +407,77 @@ public class WorkBookTrt {
 			ces.registerGlobalListener(Core.TopicRemove, wcel); // 
             
 		}
-		
-		//ces.registerGlobalListener(Core.TopicAdd, wcel); // 
-		//ces.registerGlobalListener(Core.Labels, wcel); // 
+		else
+		{
+		   /* Workbook can react to events again */ 
+		   if ( wcel  !=  null)
+	       {
+	    		wcel.toogleReacting(true);
+	        }
+		}
 
 
 	}
 
 
+    /** 
+     * Clear sum information in non leaf pages
+     */
+	public void cleanSumInfo()
+	{
+
+		
+		
+		/* We'll work on labels : we need to stop automtic reaction */
+		
+		if ( wcel  !=  null)
+		{
+			wcel.toogleReacting(false);
+		}
+			
+		
+		HashMap<Integer, List <ITopic>> hm = new HashMap<Integer, List<ITopic>>();
+
+		ITopic root = wb.getPrimarySheet().getRootTopic();
+
+
+		crossTree(root,0, hm);
+		
+
+		int maxLevelSeen = 0;
+		for ( Integer i :  hm.keySet())
+		{
+			if ( i > maxLevelSeen)
+			{
+				maxLevelSeen = i;
+			}
+
+		}
+		
+		
+		for ( Integer i =maxLevelSeen; i>-1; i--)
+		{
+			for ( ITopic topic : hm.get(i)) 
+			{ 
+
+//				TopicUtils trt = new TopicUtils(topic, wb);
+				cleanLabelfromSumInfo(topic);
+
+			}
+		}
+		
+	
+	
+	
+
+	   /* Workbook can react to events again */ 
+	   if ( wcel  !=  null)
+       {
+    		wcel.toogleReacting(true);
+        }
+
+
+	}
 
 
 

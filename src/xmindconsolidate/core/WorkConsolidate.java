@@ -109,21 +109,25 @@ public class WorkConsolidate {
 
     
 
-			/**
-		     * run method : prepare workbook and launch consolidation
-		     */
+    /**
+     * run method : prepare workbook and launch consolidation
+	 */
 		    
-			public void run()  {
-				
-				
-
-				
-				WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
-				wbt.consolidate();
-				
-
-
-			}
+ 	public void run()  {
+		
+		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
+    	wbt.consolidate();
+    }
+ 	
+ 	/**
+ 	 * clean method : clean sum info
+ 	 * 
+ 	 */
+ 	public void clean()  {
+		
+		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
+    	wbt.cleanSumInfo();
+    }
          
 
 
