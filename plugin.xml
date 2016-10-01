@@ -2,22 +2,10 @@
 <?eclipse version="3.4"?>
 <plugin>
 
- <!--extension
-         point="org.eclipse.ui.menus">
-      <menuContribution 
-            allPopups="false"
-            locationURI="popup:org.xmind.ui.StylesView?after=group.file">
-         <command
-               commandId="org.xmind.ui.command.style.apply"
-               id="org.xmind.ui.popup.StylesView.apply"
-               style="push">
-         </command>
-      </menuContribution>
-   </extension-->
+ 
 
-
-   <extension
-         point="org.eclipse.ui.commands">
+   <!-- Commande + 1 jour -->
+   <extension  point="org.eclipse.ui.commands">
       <category
             description="%commandCategory.xmindconsolidate.description"
             id="org.xmind.mlaval.category.view"
@@ -31,18 +19,13 @@
       </command>
    </extension>   
    
-   <!-- bindings :
-     les raccourcis clavier
-     
-     raccourci (avec contexte -> commande )
-   -->    
     <extension
          point="org.eclipse.ui.bindings">
       <key
             commandId="org.xmind.mlaval.command.plusOneDay"
             contextId="org.xmind.ui.context.mindmap.edit"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="BS">
+            sequence="M1+ARROW_UP">
       </key>
    </extension>
    
@@ -50,10 +33,49 @@
          point="org.eclipse.ui.handlers"
          id = "documentation.handlers">
       <handler
-            class="xmindconsolidate.actions.testCommande"
+            class="xmindconsolidate.actions.plusOneDay"
             commandId="org.xmind.mlaval.command.plusOneDay">
       </handler>
    </extension>
+
+
+   <!-- Commande - 1 jour -->
+   <extension  point="org.eclipse.ui.commands">
+      <category
+            description="%commandCategory.xmindconsolidate.description"
+            id="org.xmind.mlaval.category.view"
+            name="%commandCategory.xmindconsolidate.name">
+      </category>
+      <command
+            categoryId="org.xmind.mlaval.category.view"
+            description="%command.xmindconsolidate.minusOneDay.description"
+            id="org.xmind.mlaval.command.minusOneDay"
+            name="%command.xmindconsolidate.minusOneDay.name">
+      </command>
+   </extension>   
+   
+    <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.xmind.mlaval.command.minusOneDay"
+            contextId="org.xmind.ui.context.mindmap.edit"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ARROW_DOWN">
+      </key>
+   </extension>
+   
+    <extension
+         point="org.eclipse.ui.handlers"
+         id = "documentation.handlers">
+      <handler
+            class="xmindconsolidate.actions.minusOneDay"
+            commandId="org.xmind.mlaval.command.minusOneDay">
+      </handler>
+   </extension>
+   
+
+
+   <!-- Action in menubar --> 
    
    
    <extension
