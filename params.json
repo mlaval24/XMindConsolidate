@@ -1,6 +1,6 @@
 {
   "name": "Xmindconsolidate",
   "tagline": "Simple workload consolidation in  an Xmind map",
-  "body": "# XMindConsolidate\r\nSimple workload consolidation in an Xmind map\r\n\r\n\r\nTo install plugin\r\n-----------------\r\n\r\n* export it as jar\r\n* copy it to <xmind>\\Commons\\plugins\r\n* update <xmind>\\XMind_Windows\\configuration\\config.ini\r\n* update <xmind>\\XMind_Windows\\configuration\\org.eclipse.equinox.simpleconfigurator\\bundles.info\r\n\r\nTo avoid cache problems\r\n-----------------------\r\n* delete <xmind>\\XMind_Windows\\configuration\\org.eclipse.osgi\r\n* delete <xmind>\\data\r\n\r\nStart xmind\r\n\r\n\r\nTo do\r\n-----\r\n* Support of multiple workbooks\r\n* Toogle button ",
+  "body": "# XMindConsolidate\r\nSimple workload consolidation in an Xmind map\r\n\r\n\r\nTo install plugin\r\n-----------------\r\n\r\n* find plugin directory of your Xmind installation ( on windows : C:\\Program Files (x86)\\XMind\\plugins )\r\n* copy jar file to it\r\n* restart xmind\r\n\r\nTo avoid cache problems\r\n-----------------------\r\n* delete %appdata%\\Roaming\\XMind\\configuration-cathy_win32\\org.eclipse.osgi\r\n* restart xmind\r\n\r\n\r\nTo do\r\n-----\r\n* Support of multiple workbooks\r\n* Toogle button ",
   "note": "Don't delete this file! It's used internally to help with page regeneration."
 }
