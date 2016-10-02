@@ -39,7 +39,7 @@ import xmindconsolidate.Activator;
 
 public class WorkBookTrt {
 
-	private static final String IS_CONSOLIDATED = "est_consolide";
+	private static final String IS_CONSOLIDATED = "est_consolide"; //$NON-NLS-1$
 
 	
 	private IWorkbook wb;
@@ -140,13 +140,14 @@ public class WorkBookTrt {
 
 
 
-		String iconDirectory = "/markIcons";
-		IMarkerSheet sheet = workbook.getMarkerSheet();
+		String iconDirectory = "/markIcons"; //$NON-NLS-1$
+		
 
 
 		try {
 
 
+			IMarkerSheet sheet = workbook.getMarkerSheet();
 
 			BundleContext ctx =
 					BundleReference.class.cast(this.getClass().getClassLoader())
@@ -181,8 +182,8 @@ public class WorkBookTrt {
 	public void cleanLabelfromSumInfo(ITopic topic)
 	{
 
-		final Pattern pattern1 = Pattern.compile("\\u03A3\\s=\\s(\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
-		final Pattern pattern2 = Pattern.compile("\\u03A3\\s=\\s(\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)");
+		final Pattern pattern1 = Pattern.compile("\\u03A3\\s=\\s(\\d*\\.\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)"); //$NON-NLS-1$ //$NON-NLS-2$
+		final Pattern pattern2 = Pattern.compile("\\u03A3\\s=\\s(\\d*)[jJdDhH"+GenUtils.getDayAbrev()+"]\\s\\(.*\\)"); //$NON-NLS-1$ //$NON-NLS-2$
 
 
 	
@@ -361,8 +362,8 @@ public class WorkBookTrt {
 					for( String  l : labels)
 					{
 
-						final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
-						final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$");
+						final Pattern ptWk1 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+\\.\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$"); //$NON-NLS-1$ //$NON-NLS-2$
+						final Pattern ptWk2 = Pattern.compile("^([a-zA-Z]+)\\s+(\\d+)[jJdDhH"+GenUtils.getDayAbrev()+"]$"); //$NON-NLS-1$ //$NON-NLS-2$
 
 
 						final Matcher mWk1 = ptWk1.matcher(l);
@@ -376,8 +377,9 @@ public class WorkBookTrt {
 							//TODO : internationalize it !	
 							MessageDialog.openInformation(
 									this.window.getShell(),
-									"XMindConsolidate",
-									"Suppression de la charge de travail "+l+" pour le poste " +topic.getTitleText());
+									"XMindConsolidate", //$NON-NLS-1$
+									
+									Messages.getString(Messages.XmindConsolidate_Delete_Workload,l,topic.getTitleText())); //$NON-NLS-2$
 						} 
 					}
 					
@@ -385,7 +387,7 @@ public class WorkBookTrt {
 					/*
 					 * And add sum information
 					 */
-    				topic.addLabel("\u03A3 = " + trt.getTotalWork()+GenUtils.getDayAbrev()+" ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" );
+    				topic.addLabel("\u03A3 = " + trt.getTotalWork()+GenUtils.getDayAbrev()+" ("+Math.round(totalWorkCompleted*100/totalWork)+"%)" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 				}
 
@@ -496,11 +498,11 @@ public class WorkBookTrt {
 		/*
 		 * Store the consolidation Status in Workbook
 		 */
-		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind");
+		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind"); //$NON-NLS-1$
 		if (consolidated == null)
 		{
 
-			consolidated = root.createExtension("org.mlaval.xmind");
+			consolidated = root.createExtension("org.mlaval.xmind"); //$NON-NLS-1$
 		}
 
 		ITopicExtensionElement ee = consolidated.getContent().getFirstChild(IS_CONSOLIDATED);
@@ -513,11 +515,11 @@ public class WorkBookTrt {
 		{
 			if (status)
 			{
-				   ee.setTextContent("Yes");
+				   ee.setTextContent("Yes"); //$NON-NLS-1$
 			}
 			else
 			{
-				   ee.setTextContent("No");
+				   ee.setTextContent("No"); //$NON-NLS-1$
 			}
 				
 			
@@ -540,7 +542,7 @@ public class WorkBookTrt {
 		/*
 		 * Store the consolidation Status in Workbook
 		 */
-		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind");
+		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind"); //$NON-NLS-1$
 		if (consolidated != null)
 		{
 
@@ -550,7 +552,7 @@ public class WorkBookTrt {
 		   
 				String res = ee.getTextContent();
 				
-				if (res.equals("Yes"))
+				if (res.equals("Yes")) //$NON-NLS-1$
 				{
 					st = true;
 				}

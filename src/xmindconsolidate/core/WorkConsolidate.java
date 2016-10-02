@@ -57,7 +57,7 @@ public class WorkConsolidate {
 			/*
 			 *  
 			 */
-			workbook = (IWorkbook) ep.getClass().getMethod("getWorkbook").invoke(ep);
+			workbook = (IWorkbook) ep.getClass().getMethod("getWorkbook").invoke(ep); //$NON-NLS-1$
 			
 			
 			
@@ -65,8 +65,8 @@ public class WorkConsolidate {
 
 			MessageDialog.openInformation(
 					this.window.getShell(),
-					"XMindConsolidate",
-					"Workbook not found "+e.getMessage());
+					"XMindConsolidate", //$NON-NLS-1$
+					Messages.XmindConsolidate_WB_Not_Found + e.getMessage());
 		}
 
 
@@ -146,7 +146,7 @@ public class WorkConsolidate {
 		
 		;
 		ICommandService cmdService =(ICommandService) (part.getSite()).getService(ICommandService.class);
-		Command cmd = cmdService.getCommand("org.xmind.mlaval.command.launchConsolidation");
+		Command cmd = cmdService.getCommand("org.xmind.mlaval.command.launchConsolidation"); //$NON-NLS-1$
 
 		if ( HandlerUtil.toggleCommandState(cmd) == wbt.getConsolidationStatus())
 		
@@ -156,7 +156,7 @@ public class WorkConsolidate {
 			
 
 
-		System.out.println("Statut = "+ wbt.getConsolidationStatus());
+		System.out.println("Statut = "+ wbt.getConsolidationStatus()); //$NON-NLS-1$
 		
  		
  	}
