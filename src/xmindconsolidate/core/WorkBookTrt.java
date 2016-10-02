@@ -20,6 +20,8 @@ import org.osgi.framework.BundleReference;
 import org.xmind.core.Core;
 import org.xmind.core.CoreException;
 import org.xmind.core.ITopic;
+import org.xmind.core.ITopicExtension;
+import org.xmind.core.ITopicExtensionElement;
 import org.xmind.core.IWorkbook;
 import org.xmind.core.event.ICoreEventRegistration;
 import org.xmind.core.event.ICoreEventSupport;
@@ -37,6 +39,9 @@ import xmindconsolidate.Activator;
 
 public class WorkBookTrt {
 
+	private static final String IS_CONSOLIDATED = "est_consolide";
+
+	
 	private IWorkbook wb;
 
 
@@ -460,7 +465,6 @@ public class WorkBookTrt {
 			for ( ITopic topic : hm.get(i)) 
 			{ 
 
-//				TopicUtils trt = new TopicUtils(topic, wb);
 				cleanLabelfromSumInfo(topic);
 
 			}
@@ -477,6 +481,83 @@ public class WorkBookTrt {
         }
 
 
+
+	}
+
+
+	/**
+	 * Save the consolidation status 
+	 * @param status
+	 */
+	public void saveConsolidationStatus(boolean status)
+	{
+		
+		ITopic root = wb.getPrimarySheet().getRootTopic();
+		/*
+		 * Store the consolidation Status in Workbook
+		 */
+		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind");
+		if (consolidated == null)
+		{
+
+			consolidated = root.createExtension("org.mlaval.xmind");
+		}
+
+		ITopicExtensionElement ee = consolidated.getContent().getFirstChild(IS_CONSOLIDATED);
+		if (ee == null)
+		{
+			ee = consolidated.getContent().createChild(IS_CONSOLIDATED);
+		}
+
+		if (ee != null)
+		{
+			if (status)
+			{
+				   ee.setTextContent("Yes");
+			}
+			else
+			{
+				   ee.setTextContent("No");
+			}
+				
+			
+		}
+	}
+
+	
+	
+	/**
+	 * Get the consolidation status 
+	 * @param topic
+	 * @return
+	 */
+	public boolean getConsolidationStatus()
+	{
+		boolean st = false;
+		
+		ITopic root = wb.getPrimarySheet().getRootTopic();
+
+		/*
+		 * Store the consolidation Status in Workbook
+		 */
+		ITopicExtension consolidated = (ITopicExtension) root.getExtension("org.mlaval.xmind");
+		if (consolidated != null)
+		{
+
+			ITopicExtensionElement ee = consolidated.getContent().getFirstChild(IS_CONSOLIDATED);
+			if (ee != null)
+		   {
+		   
+				String res = ee.getTextContent();
+				
+				if (res.equals("Yes"))
+				{
+					st = true;
+				}
+		    }
+			
+		}
+		return st;
 	}
 
 

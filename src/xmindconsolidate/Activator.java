@@ -1,8 +1,19 @@
 package xmindconsolidate;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IPartService;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+
+import xmindconsolidate.core.WorkConsolidate;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -19,6 +30,10 @@ public class Activator extends AbstractUIPlugin {
 	 * The constructor
 	 */
 	public Activator() {
+		
+		
+	
+		
 	}
 
 	/*
@@ -27,7 +42,100 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		
+		
+	IWorkbench wb = PlatformUI.getWorkbench();
+		
+	
+	IWorkbenchWindow[] iwwt = wb.getWorkbenchWindows();
+		IWorkbenchWindow iww =  iwwt[0];
+
+		if  (iww != null)
+		{
+		//ISelectionListener listener = new ISelectionListener();
+		IPartService ips  = iww.getPartService();
+		
+		ips.addPartListener( new IPartListener2 () {
+
+			@Override
+			public void partActivated(IWorkbenchPartReference partRef)
+			{
+				System.out.println("Part activated");
+				// TODO Auto-generated method stub
+
+			// TODO Auto-generated method stub
+				
+				WorkConsolidate wc = new WorkConsolidate(partRef.getPage().getWorkbenchWindow());
+				
+				try
+				{
+					wc.updateCommandStatus(partRef.getPart(false));
+				} catch (ExecutionException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			@Override
+			public void partBroughtToTop(IWorkbenchPartReference partRef)
+			{
+				System.out.println("Part on top");
+	
+			}
+
+			@Override
+			public void partClosed(IWorkbenchPartReference partRef)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void partDeactivated(IWorkbenchPartReference partRef)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void partOpened(IWorkbenchPartReference partRef)
+			{
+				System.out.println("Part open");
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void partHidden(IWorkbenchPartReference partRef)
+			{
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void partVisible(IWorkbenchPartReference partRef)
+			{
+				System.out.println("Part visible");
+				
+			}
+
+			@Override
+			public void partInputChanged(IWorkbenchPartReference partRef)
+			{
+				// TODO Auto-generated method stub
+				
+			}});
+		
+		//IWorkbenchListener ibl =new IWorkbenchListener();
+	//	wb.addWorkbenchListener( ibl);
+
+		}
+		
 		plugin = this;
+		
+		
+		
 	}
 
 	/*

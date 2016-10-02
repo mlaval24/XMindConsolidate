@@ -249,5 +249,8 @@
          </menuContribution>
       </extension-->
 
-
+<extension
+point="org.eclipse.ui.startup">
+<startup class="xmindconsolidate.MyStartup"/>
+</extension>
 </plugin>
