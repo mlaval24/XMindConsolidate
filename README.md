@@ -9,7 +9,7 @@ To install plugin
 
 Minimal documentation
 -----------------
-
+* see https://github.com/mlaval24/XMindConsolidate/releases/download/Beta/XMindConsolidate_doc_v0.pdf
 
 To do
 -----
