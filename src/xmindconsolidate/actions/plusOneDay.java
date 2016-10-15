@@ -1,7 +1,6 @@
 package xmindconsolidate.actions;
 
 import java.util.Iterator;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,15 +8,10 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.IHandlerListener;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.xmind.core.ITopic;
-import org.xmind.core.internal.dom.TopicImpl;
 
 import xmindconsolidate.core.GenUtils;
 
@@ -33,31 +27,26 @@ public class plusOneDay implements IHandler
 
 	public plusOneDay()
 	{
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
 	public void addHandlerListener(IHandlerListener arg0)
 	{
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void dispose()
 	{
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
 	{
-		
-		IWorkbenchWindow window = HandlerUtil
-				.getActiveWorkbenchWindowChecked(event);
-		
-		
 		
 		ISelection selection = HandlerUtil.getCurrentSelectionChecked(event);
 		if (selection instanceof IStructuredSelection) {
@@ -76,26 +65,9 @@ public class plusOneDay implements IHandler
 			        	ITopic topic = (ITopic)o;
 			        	
 			        	addOneDay(topic,1.0);
-			        	/*
-			        	MessageDialog.openInformation(
-								window.getShell(),
-								"XMindKanboard", topic.getTitleText() );
-			            */	
 			        }
 		        }
-		            
-		        
-	
-			
-			
-			
 		}
-		
-		/*
-		MessageDialog.openInformation(window.getShell(),
-				"xx",
-				"yy");
-		*/
 		
 		return null;
 	}
@@ -117,7 +89,6 @@ public class plusOneDay implements IHandler
 	@Override
 	public void removeHandlerListener(IHandlerListener arg0)
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	

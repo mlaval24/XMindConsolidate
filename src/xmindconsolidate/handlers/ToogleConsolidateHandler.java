@@ -10,6 +10,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import xmindconsolidate.core.WorkConsolidate;
 
+
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
  * @see org.eclipse.core.commands.IHandler
@@ -48,7 +49,7 @@ public class ToogleConsolidateHandler extends AbstractHandler {
 			MessageDialog.openInformation(
 					window.getShell(),
 					"XMindConsolidate",
-					"Lancemement de la consolidation");
+					Messages.XmindConsolidate_Begin_Consolidation);
 
 			   t.run();
 		}
@@ -57,7 +58,7 @@ public class ToogleConsolidateHandler extends AbstractHandler {
 			MessageDialog.openInformation(
 					window.getShell(),
 					"XMindConsolidate",
-					"Arrêt de la consolidation : supression des sommmes");
+					Messages.XmindConsolidate_Stop_Consolidation);
 			   t.clean();
 		}
 

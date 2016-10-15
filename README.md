@@ -15,10 +15,11 @@ To avoid cache problems
 * delete <xmind>\XMind_Windows\configuration\org.eclipse.osgi
 * delete <xmind>\data
 
-Start xmind
+Start xmind 
 
 
 To do
 -----
 * Support of multiple workbooks
 * Toogle button 
+* Add keys for completion rate

@@ -2,12 +2,19 @@ package xmindconsolidate.core;
 
 import java.io.IOException;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.xmind.core.Core;
 import org.xmind.core.CoreException;
+import org.xmind.core.ITopic;
 import org.xmind.core.IWorkbook;
 import org.xmind.core.IWorkbookBuilder;
 
@@ -50,7 +57,7 @@ public class WorkConsolidate {
 			/*
 			 *  
 			 */
-			workbook = (IWorkbook) ep.getClass().getMethod("getWorkbook").invoke(ep);
+			workbook = (IWorkbook) ep.getClass().getMethod("getWorkbook").invoke(ep); //$NON-NLS-1$
 			
 			
 			
@@ -58,8 +65,8 @@ public class WorkConsolidate {
 
 			MessageDialog.openInformation(
 					this.window.getShell(),
-					"XMindConsolidate",
-					"Workbook not found "+e.getMessage());
+					"XMindConsolidate", //$NON-NLS-1$
+					Messages.XmindConsolidate_WB_Not_Found + e.getMessage());
 		}
 
 
@@ -117,6 +124,7 @@ public class WorkConsolidate {
 		
 		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
     	wbt.consolidate();
+		wbt.saveConsolidationStatus(true);
     }
  	
  	/**
@@ -127,9 +135,32 @@ public class WorkConsolidate {
 		
 		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
     	wbt.cleanSumInfo();
+		wbt.saveConsolidationStatus(false);
     }
          
 
+ 	public void updateCommandStatus(IWorkbenchPart part) throws ExecutionException
+ 	{
+		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
+	
+		
+		;
+		ICommandService cmdService =(ICommandService) (part.getSite()).getService(ICommandService.class);
+		Command cmd = cmdService.getCommand("org.xmind.mlaval.command.launchConsolidation"); //$NON-NLS-1$
+
+		if ( HandlerUtil.toggleCommandState(cmd) == wbt.getConsolidationStatus())
+		
+		{
+			HandlerUtil.toggleCommandState(cmd);
+		}
+			
+
+
+		System.out.println("Statut = "+ wbt.getConsolidationStatus()); //$NON-NLS-1$
+		
+ 		
+ 	}
+ 	
 
 	}
 

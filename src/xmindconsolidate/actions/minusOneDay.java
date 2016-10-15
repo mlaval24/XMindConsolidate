@@ -33,151 +33,115 @@ public class minusOneDay implements IHandler
 
 	public minusOneDay()
 	{
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void addHandlerListener(IHandlerListener arg0)
 	{
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose()
 	{
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
 	{
-		
-		IWorkbenchWindow window = HandlerUtil
-				.getActiveWorkbenchWindowChecked(event);
-		
-		
-		
+
+
 		ISelection selection = HandlerUtil.getCurrentSelectionChecked(event);
 		if (selection instanceof IStructuredSelection) {
-			
-			
-		        if (((IStructuredSelection) selection).size() != 1)
-		        {
-		        	
-		        }
-		        else
-		        {
-		        
-		        	Object o = ((IStructuredSelection) selection).getFirstElement();
-			        if (o instanceof ITopic) {
 
-			        	ITopic topic = (ITopic)o;
-			        	
-			        	substractOneDay(topic,1.0);
-			        }
-		        }
-		            
-		        
-	
-			
-			
-			
+
+			if (((IStructuredSelection) selection).size() != 1)
+			{
+
+			}
+			else
+			{
+
+				Object o = ((IStructuredSelection) selection).getFirstElement();
+				if (o instanceof ITopic) {
+
+					ITopic topic = (ITopic)o;
+					substractOneDay(topic,1.0);
+				}
+			}
 		}
-		
-
-		
 		return null;
 	}
 
 	@Override
 	public boolean isEnabled()
 	{
-	
+
 		return true;
 	}
 
 	@Override
 	public boolean isHandled()
 	{
-	
+
 		return true;
 	}
+
 
 	@Override
 	public void removeHandlerListener(IHandlerListener arg0)
 	{
-		// TODO Auto-generated method stub
-		
 	}
-	
-	
+
+
 	/**
 	 * Add one day to work
 	 *  
 	 */
-	
-	public void substractOneDay(ITopic topic,double ind)
-	{
 
-		
+	 public void substractOneDay(ITopic topic,double ind)
+     {
 
-		Iterator<String> iterator = topic.getLabels().iterator();
-		
+		 Iterator<String> iterator = topic.getLabels().iterator();
 
+		 while (iterator.hasNext())
+		 {
+			 String lb  =  iterator.next();	
 
-       while (iterator.hasNext())
-       {
-         	 String lb  =  iterator.next();	
-		
-	    	 final Pattern pattern1 = Pattern.compile("(\\D+\\s*)(\\d*\\.\\d*)(\\s*)([jJdDhH"+GenUtils.getDayAbrev()+"])");
-	    	 final Pattern pattern2 = Pattern.compile("(\\D+\\s*)(\\d*)(\\s*)([jJdDhH"+GenUtils.getDayAbrev()+"])");
-	    	 
-	    	 
-	    	 
-	    	  Double res;
-			  final Matcher matcher1 = pattern1.matcher(lb);
-			  if ( matcher1.find() )
-			  {
-  			       res = Double.parseDouble(matcher1.group(2)) - 1.0 ;
-  			       
-  			       if  (res >=0.0) 
- 			       {
-        	         topic.removeLabel(lb);
-	  			      
-	  			     lb = matcher1.group(1)+res+matcher1.group(3)+matcher1.group(4);
-	  			     topic.addLabel(lb);
-  			       }
-			  }
-			  else
-			  {
-     	           final Matcher matcher2 = pattern2.matcher(lb);
+			 final Pattern pattern1 = Pattern.compile("(\\D+\\s*)(\\d*\\.\\d*)(\\s*)([jJdDhH"+GenUtils.getDayAbrev()+"])");
+			 final Pattern pattern2 = Pattern.compile("(\\D+\\s*)(\\d*)(\\s*)([jJdDhH"+GenUtils.getDayAbrev()+"])");
 
-                   if ( matcher2.find() )
-                   {
-	   			          res = Double.parseDouble(matcher2.group(2)) -1.0 ;
+			 Double res;
+			 final Matcher matcher1 = pattern1.matcher(lb);
+			 if ( matcher1.find() )
+			 {
+				 res = Double.parseDouble(matcher1.group(2)) - 1.0 ;
 
-	     			      if  (res >=0.0 ) 
-	     			      {
-                             topic.removeLabel(lb);
-	   	  			      
-	   	  			         lb = matcher2.group(1)+res+matcher2.group(3)+matcher2.group(4);
-	   	  			         topic.addLabel(lb);
-	     			      }
-  	  			      
-	   	  			      
-                   }
+				 if  (res >=0.0) 
+				 {
+					 topic.removeLabel(lb);
 
-			  }
-			  
-			
+					 lb = matcher1.group(1)+res+matcher1.group(3)+matcher1.group(4);
+					 topic.addLabel(lb);
+				 }
+			 }
+			 else
+			 {
+				 final Matcher matcher2 = pattern2.matcher(lb);
+
+				 if ( matcher2.find() )
+				 {
+					 res = Double.parseDouble(matcher2.group(2)) -1.0 ;
+
+					 if  (res >=0.0 ) 
+					 {
+						 topic.removeLabel(lb);
+
+						 lb = matcher2.group(1)+res+matcher2.group(3)+matcher2.group(4);
+						 topic.addLabel(lb);
+					 }
+				 }
+			}
 		}
-		
-	    	 
-	    	 
-		
-	
-    	}
-
+	}
 }

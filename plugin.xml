@@ -37,7 +37,7 @@
             id="org.xmind.mlaval.command.launchConsolidation"
             name="%command.xmindconsolidate.launchConsolidation.name">
          <state
-               class="org.eclipse.ui.handlers.RegistryToggleState:true"
+               class="org.eclipse.ui.handlers.RegistryToggleState:false"
                id="org.eclipse.ui.commands.toggleState">
          </state>
       </command>
@@ -61,7 +61,7 @@
             commandId="org.xmind.mlaval.command.launchConsolidation"
             contextId="org.xmind.ui.context.mindmap.edit"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+C">
+            sequence="M1+M2+C">
       </key>
    </extension>
    
@@ -249,5 +249,8 @@
          </menuContribution>
       </extension-->
 
-
+<extension
+point="org.eclipse.ui.startup">
+<startup class="xmindconsolidate.MyStartup"/>
+</extension>
 </plugin>
