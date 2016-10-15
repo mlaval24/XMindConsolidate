@@ -5,21 +5,16 @@ Simple workload consolidation in  an Xmind map
 To install plugin
 -----------------
 
-* export it as jar
-* copy it to <xmind>\Commons\plugins
-* update <xmind>\XMind_Windows\configuration\config.ini
-* update <xmind>\XMind_Windows\configuration\org.eclipse.equinox.simpleconfigurator\bundles.info
+* copy https://github.com/mlaval24/XMindConsolidate/releases/download/Beta/XMindConsolidate_0.0.6.201609301947.jar to plugins folder of your XMind installation
 
-To avoid cache problems
------------------------
-* delete <xmind>\XMind_Windows\configuration\org.eclipse.osgi
-* delete <xmind>\data
-
-Start xmind 
+Minimal documentation
+-----------------
 
 
 To do
 -----
-* Support of multiple workbooks
-* Toogle button 
 * Add keys for completion rate
+
+Known bugs
+----------
+
