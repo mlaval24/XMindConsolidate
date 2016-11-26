@@ -1,9 +1,17 @@
 package xmindconsolidate.msproject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jacob.activeX.ActiveXComponent;
 import com.jacob.com.Dispatch;
 import com.jacob.com.Variant;
 
+/**
+ * Wrapper to msproject
+ * @author LAVALDAVID
+ *
+ */
 public class MsProjectWrapper
 {
 
@@ -46,7 +54,7 @@ public class MsProjectWrapper
     public void addTask (String titre, 
     		             int work, 
     		             String id, 
-    		             String [] id_predecessors,
+    		             List<Integer> predList,
     		             long outlinelevel,
     		             String [] resources
     		             )
@@ -54,11 +62,28 @@ public class MsProjectWrapper
     	
     	Dispatch task = Dispatch.call(tasks, "Add", titre).toDispatch();
     	
+    	
+    	
     	Dispatch.put((Dispatch) task, "Work", work);
     	Dispatch.put((Dispatch) task, "OutlineLevel", outlinelevel);
+    	Dispatch.put((Dispatch) task, "Manual", 0);
+    	Dispatch.put((Dispatch) task, "Type", 2);
     	Dispatch.call(task, "SetField", new Object[] {d, new Variant(id)});
     	
     	int taskId = Dispatch.get((Dispatch) task, "ID").getInt();
+    	
+    	
+    	String strPred = "";
+    	for (Integer prd : predList )
+    	{
+    		
+    		strPred = strPred + prd.toString() + ";"; 
+    		
+    	}
+    	    	
+    	//Dispatch.put((Dispatch) task, "Predecessors", new Dispatch(strPred));
+    	//Dispatch.put((Dispatch) task, "Predecessors", new Variant[]{new Variant(strPred)});
+    	//Dispatch.call(task,"Predecessors", new Variant[]{new Variant(strPred)});
     	
     	for ( String r :resources)
     	{

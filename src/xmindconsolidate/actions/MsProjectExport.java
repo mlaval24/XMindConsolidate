@@ -1,5 +1,7 @@
 package xmindconsolidate.actions;
 
+import java.util.ArrayList;
+
 import org.eclipse.ui.IWorkbenchWindow;
 
 import xmindconsolidate.msproject.MsProjectWrapper;
@@ -39,14 +41,14 @@ public class MsProjectExport
      * ù/
      */
 	
-	prjW.addTask("Texte",6,"1",new String[]{},1,new String[]{"ML"});
+	prjW.addTask("Texte",6,"1",new ArrayList<Integer>(),1,new String[]{"ML"});
 	
 	//prjW.addOrUpdateResource("ML",50);
 	//prjW.addOrUpdateResource("XD",70);
 	
-	prjW.addTask("Texte",6,"2",new String[]{},2,new String[]{"XX"});
-	prjW.addTask("Texte",6,"3",new String[]{},3,new String[]{"ML"});
-	prjW.addTask("Texte",6,"4",new String[]{},3,new String[]{"ML"});
+	prjW.addTask("Texte",6,"2",new ArrayList<Integer>(),2,new String[]{"XX"});
+	prjW.addTask("Texte",6,"3",new ArrayList<Integer>(),3,new String[]{"ML"});
+	prjW.addTask("Texte",6,"4",new ArrayList<Integer>(),3,new String[]{"ML"});
 
 	/*
     Dispatch task0 = Dispatch.call(tasks, "Add", "Texte").toDispatch();

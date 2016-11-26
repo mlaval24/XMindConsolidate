@@ -168,7 +168,7 @@ public class WorkBookTrt
     		
 			System.out.println("Ajout topic "+pos+" "+te.getId()+" "+te.getTopic().getTitleText());
 
-			pos += crossTreeToList(child, level++,pos, hm, hmPos);
+			pos = crossTreeToList(child, level++,pos, hm, hmPos);
 
 			level--;
 
@@ -514,7 +514,14 @@ public class WorkBookTrt
 	{
 		boolean st = false;
 
-		ITopic root = wb.getPrimarySheet().getRootTopic();
+		
+		if (wb == null || wb.getPrimarySheet() == null)
+		{
+			return st;
+		}
+		
+				
+    	ITopic root = wb.getPrimarySheet().getRootTopic();
 
 		/*
 		 * Store the consolidation Status in Workbook
@@ -553,7 +560,7 @@ public class WorkBookTrt
 		MsProjectWrapper prjW = new MsProjectWrapper();
 
 		HashMap<String, TopicEnv> hm = new HashMap<String, TopicEnv>();
-		
+
 		HashMap<Integer, TopicEnv> hmPos = new HashMap<Integer, TopicEnv>();
 
 		ITopic root = wb.getPrimarySheet().getRootTopic();
@@ -563,45 +570,54 @@ public class WorkBookTrt
 		 */
 
 		Integer pos = 0;
-		crossTreeToList(root, 0,0, hm,hmPos);
-		
+		crossTreeToList(root, 0, pos, hm, hmPos);
 
 		for (Integer posKey : new TreeSet<Integer>(hmPos.keySet()))
 		{
 
-			
 			TopicEnv te = hmPos.get(posKey);
-			
-			int level= te.getLevel()+1;
-			
-			ITopic topic = te.getTopic();
 
+			int level = te.getLevel() + 1;
+
+			ITopic topic = te.getTopic();
 			TopicUtils trt = new TopicUtils(topic, wb);
 
+			String title = topic.getTitleText();
 
-    		String title = topic.getTitleText();
-
-	    	AssignmentsTrt atrt = new AssignmentsTrt(trt);
+			AssignmentsTrt atrt = new AssignmentsTrt(trt);
 
 			List<HashMap<String, String>> assignments = atrt.getAssignments();
-
-
-			if ( assignments.isEmpty())
+			
+			
+			/* 
+			 * Predecessor manage
+			 */
+			List<Integer> predListByNumber = new ArrayList<Integer>();
+			
+			
+			if (posKey > 1) 
 			{
-				
-				prjW.addTask(title, 0, "1", new String[] {}, level, new String[] {});
+				if ( hmPos.get(posKey-1).getLevel() == te.getLevel() )
+				{
+					predListByNumber.add(posKey-1);
+				}
 			}
+
+			if (assignments.isEmpty())
+			{
+				prjW.addTask(title, 0, te.getId(), predListByNumber, level, new String[] {});
+			} 
 			else
 			{
-			for (HashMap<String, String> assgt : assignments)
-			{
-				int work = Integer.parseInt(assgt.get("work"));
-				String[] res = new String[] { assgt.get("initials") };
-				prjW.addTask(title, work,te.getId(), new String[] {}, level, res);
+				for (HashMap<String, String> assgt : assignments)
+				{
+					int work = Integer.parseInt(assgt.get("work"));
+					String[] res = new String[] { assgt.get("initials") };
+					prjW.addTask(title, work, te.getId(), predListByNumber, level, res);
 
+				}
 			}
-			}
-			
+
 		}
 
 	}
