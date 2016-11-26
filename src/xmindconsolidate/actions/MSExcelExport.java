@@ -9,17 +9,17 @@ import com.jacob.activeX.*;
  * @author LAVALDAVID
  *
  */
-public class excelExport
+public class MSExcelExport
 {
   public static void main(String[] args)
   {
-	/*  
+	  
     ActiveXComponent xl = new ActiveXComponent("MsProject.Application");
     Object xlo = xl.getObject();
-	*/
+	
 	  
-    ActiveXComponent xl = new ActiveXComponent("Excel.Application");
-    Object xlo = xl.getObject();
+    //ActiveXComponent xl = new ActiveXComponent("Excel.Application");
+    /*Object xlo = xl.getObject();
     try {
       System.out.println("version="+xl.getProperty("Version"));
       System.out.println("version="+Dispatch.get((Dispatch) xlo, "Version"));
@@ -45,6 +45,6 @@ public class excelExport
       xl.invoke("Quit", new Variant[] {});
     }
     
+  }*/
   }
- 
 }

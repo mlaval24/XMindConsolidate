@@ -11,14 +11,14 @@
             name="%commandCategory.xmindconsolidate.name">
       </category>
       
-      <!-- Commande + 1 jour -->
+      <!-- Command + 1 day -->
       <command
             categoryId="org.xmind.mlaval.category.view"
             description="%command.xmindconsolidate.plusOneDay.description"
             id="org.xmind.mlaval.command.plusOneDay"
             name="%command.xmindconsolidate.plusOneDay.name">
       </command>
-      <!-- Commande - 1 jour -->
+      <!-- Command - 1 day -->
       <command
             categoryId="org.xmind.mlaval.category.view"
             description="%command.xmindconsolidate.minusOneDay.description"
@@ -40,6 +40,14 @@
                class="org.eclipse.ui.handlers.RegistryToggleState:false"
                id="org.eclipse.ui.commands.toggleState">
          </state>
+      </command>
+
+      <!-- Command for export -->
+      <command
+            categoryId="org.xmind.mlaval.category.view"
+            description="%command.xmindconsolidate.launchExportMsProject.description"
+            id="org.xmind.mlaval.command.launchExportMsProject"
+            name="%command.xmindconsolidate.launchExportMsProject.name">
       </command>
    </extension>   
    
@@ -63,6 +71,12 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="M1+M2+C">
       </key>
+      <key
+            commandId="org.xmind.mlaval.command.launchExportMsProject"
+            contextId="org.xmind.ui.context.mindmap.edit"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M2+P">
+      </key>
    </extension>
    
     <extension
@@ -79,6 +93,10 @@
       <handler
             class="xmindconsolidate.handlers.ToogleConsolidateHandler"
             commandId="org.xmind.mlaval.command.launchConsolidation">
+      </handler>
+      <handler
+            class="xmindconsolidate.handlers.ToogleExportMsProject"
+            commandId="org.xmind.mlaval.command.launchExportMsProject">
       </handler>
    </extension>
 
@@ -148,6 +166,12 @@
                      icon="icons/Sigma16.gif"
                      id="org.xmind.mlaval.contextMenu.launchConsolidation"
                      style="toggle">
+               </command>
+               <command
+                     commandId="org.xmind.mlaval.command.launchExportMsProject"
+                     icon="icons/Sigma16.gif"
+                     id="org.xmind.mlaval.contextMenu.launchExportMsProject"
+                     >
                </command>
             </menu>
          </menuContribution>

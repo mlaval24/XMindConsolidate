@@ -138,7 +138,20 @@ public class WorkConsolidate {
 		wbt.saveConsolidationStatus(false);
     }
          
+ 	
+ 	/**
+ 	 * Export to project
+ 	 */
+ 	public void exportMsProject ()
+ 	{
 
+		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);
+    	wbt.exportToProject();
+		
+
+ 	}
+ 	
+ 	
  	public void updateCommandStatus(IWorkbenchPart part) throws ExecutionException
  	{
 		WorkBookTrt wbt = new WorkBookTrt(workbook, this.window);

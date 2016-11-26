@@ -95,7 +95,7 @@ public class minusOneDay implements IHandler
 
 
 	/**
-	 * Add one day to work
+	 * Substract one day to work
 	 *  
 	 */
 

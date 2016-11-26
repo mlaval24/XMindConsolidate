@@ -1,7 +1,12 @@
 package xmindconsolidate.actions;
 
+import org.eclipse.ui.IWorkbenchWindow;
+
+import xmindconsolidate.msproject.MsProjectWrapper;
+
 import com.jacob.com.*;
 import com.jacob.activeX.*;
+
 
 /**
  * 
@@ -14,17 +19,62 @@ public class MsProjectExport
   public static void main(String[] args)
   {
 	  
-    ActiveXComponent xl = new ActiveXComponent("MsProject.Application");
-    Object xlo = xl.getObject();
+	  
+	
+    //	WorkConsolidate wc = new WorkConsolidate ( IWorkbenchWindow window,  String workbookPath)	  
+	  
+	MsProjectWrapper prjW = new MsProjectWrapper();
+	
+	/*
+    ActiveXComponent msProjApp = new ActiveXComponent("MsProject.Application");
+    
+    Object projects = msProjApp.getProperty("Projects").toDispatch();
+    Object project = Dispatch.get((Dispatch) projects,"Add").toDispatch();
+    
+    
+    Dispatch tasks = Dispatch.get((Dispatch) project,"Tasks").toDispatch();
+
+    //tiveXComponent tasks = ((ActiveXComponent) project).getPropertyAsComponent("Tasks");
+    //ject task = tasks.invoke("Add","test");
+     * ù/
+     */
+	
+	prjW.addTask("Texte",6,"1",new String[]{},1,new String[]{"ML"});
+	
+	//prjW.addOrUpdateResource("ML",50);
+	//prjW.addOrUpdateResource("XD",70);
+	
+	prjW.addTask("Texte",6,"2",new String[]{},2,new String[]{"XX"});
+	prjW.addTask("Texte",6,"3",new String[]{},3,new String[]{"ML"});
+	prjW.addTask("Texte",6,"4",new String[]{},3,new String[]{"ML"});
+
+	/*
+    Dispatch task0 = Dispatch.call(tasks, "Add", "Texte").toDispatch();
+    Dispatch task1 = Dispatch.call(tasks, "Add", "Texte").toDispatch();
+    Dispatch task2 = Dispatch.call(tasks, "Add", "Texte").toDispatch();
+    Dispatch.put((Dispatch) task0, "Work", 8*60);
+    Dispatch.put((Dispatch) task1, "Work", 16*60);
+    Dispatch.put((Dispatch) task2, "Predecessors", task1 ); 
+    */
+    
+   
+    //Object task = Dispatch.get((Dispatch) tasks,"Add").toDispatch();
+   
+    
+    /* Object a1 = Dispatch.invoke((Dispatch) sheet, "Range", Dispatch.Get,
+            new Object[] {"A1"},
+            new int[1]).toDispatch();*/
+    
+//    Object xlo = msProjApp.getObject();
 
     try {
-        System.out.println("version="+xl.getProperty("Version"));
-        System.out.println("version="+Dispatch.get((Dispatch) xlo, "Version"));
+    	
+
     
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
-      xl.invoke("Quit", new Variant[] {});
+    	//msProjApp.invoke("Quit", new Variant[] {});
     }
 /*
 	  
